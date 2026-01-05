@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 
 export default function ProjectList({ onCreate, onOpenTasks }) {
   const [projects, setProjects] = useState([]);
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-    axios.get("https://localhost:7059/projects") 
+    axios.get(`${baseURL}/projects`) 
       .then(res => setProjects(res.data))
       .catch(() => toast.error("Failed to load projects"));
   }, []);
