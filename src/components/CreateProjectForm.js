@@ -6,8 +6,9 @@ export default function CreateProjectForm({ onBack }) {
   const [form, setForm] = useState({ name: "", description: "", createdBy: "admin" });
 
   const save = () => {
+     const baseURL = process.env.REACT_APP_BASE_URL;
     axios
-      .post("https://localhost:7059/projects", form)
+      .post(`${baseURL}/projects`, form)
       .then(() => {
         toast.success("Project created");
         onBack();

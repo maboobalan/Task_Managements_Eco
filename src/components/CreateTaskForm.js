@@ -19,8 +19,9 @@ export default function CreateTaskForm({ project, onBack }) {
       dueDate: form.dueDate ? new Date(form.dueDate).toISOString() : null,
     };
 
-    axios.post(
-      `https://localhost:7059/projects/${project.id}/tasks`,
+    const baseURL = process.env.REACT_APP_BASE_URL;
+
+    axios.post(`${baseURL}/projects/${project.id}/tasks`,
       payload,
       {
         headers: { "Content-Type": "application/json" }
