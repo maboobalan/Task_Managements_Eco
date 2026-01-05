@@ -1,0 +1,37 @@
+name: Deploy React to IIS on Develop Merge
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install & Build React
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy build to IIS folder
+        run: |
+          xcopy /E /Y /I build D:\IIS\TaskManagerFrontend
+
+      - name: Restart IIS Site
+        shell: powershell
+        run: |
+          Import-Module WebAdministration
+          Restart-WebSite -Name "Default Web Site"
