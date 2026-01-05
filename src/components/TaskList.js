@@ -5,10 +5,11 @@ import { toast } from "react-toastify";
 
 export default function TaskList({ project, onBack, onCreateTask, onOpenTaskDetail }) {
   const [tasks, setTasks] = useState([]);
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   const load = () => {
     axios
-      .get(`https://localhost:7059/projects/${project.id}/tasks`)
+      .get(`${baseURL}/projects/${project.id}/tasks`)
       .then(res => setTasks(res.data))
       .catch(() => toast.error("Failed to load tasks"));
   };

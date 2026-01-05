@@ -6,10 +6,11 @@ export default function TaskDetail({ task, onBack }) {
   const [status, setStatus] = useState(task.status);
   const [progress, setProgress] = useState(task.progressPercent);
   const [comment, setComment] = useState("");
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   const updateTask = () => {
   axios
-    .put(`https://localhost:7059/tasks/${task.id}`, {
+    .put(`${baseURL}/tasks/${task.id}`, {
       status,
       progressPercent: Number(progress), // <— important
       comment
