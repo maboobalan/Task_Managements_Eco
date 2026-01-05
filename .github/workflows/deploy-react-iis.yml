@@ -1,4 +1,4 @@
-name: Deploy React to IIS on Develop Merge
+name: Build React and Copy to IIS Folder
 
 on:
   pull_request:
@@ -8,30 +8,35 @@ on:
       - closed
 
 jobs:
-  deploy:
+  build:
     if: github.event.pull_request.merged == true
     runs-on: self-hosted
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install & Build React
-        run: |
-          npm install
-          npm run build
+      - name: Install dependencies
+        working-directory: FrontendTaskManagement/taskmanager
+        run: npm install
 
-      - name: Copy build to IIS folder
-        run: |
-          xcopy /E /Y /I build D:\IIS\TaskManagerFrontend
+      - name: Build React app
+        working-directory: FrontendTaskManagement/taskmanager
+        run: npm run build
 
-      - name: Restart IIS Site
+      - name: Copy build files to IIS folder
         shell: powershell
         run: |
-          Import-Module WebAdministration
-          Restart-WebSite -Name "Default Web Site"
+          if (Test-Path "D:\IIS\TaskManagerFrontend") {
+            Remove-Item "D:\IIS\TaskManagerFrontend\*" -Recurse -Force
+          }
+          else {
+            New-Item -ItemType Directory -Path "D:\IIS\TaskManagerFrontend"
+          }
+
+          Copy-Item "FrontendTaskManagement\taskmanager\build\*" "D:\IIS\TaskManagerFrontend" -Recurse -Force
