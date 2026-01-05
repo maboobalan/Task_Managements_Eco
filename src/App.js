@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-3">Task Management System</h2>
+      <h2 className="text-center mb-3">Task Management Systems</h2>
 
       {page === "projects" && (
         <ProjectList
