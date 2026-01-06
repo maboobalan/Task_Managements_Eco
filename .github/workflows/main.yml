@@ -1,0 +1,30 @@
+name: CI/CD to IIS Server
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # =====================
+      # FRONTEND - REACT
+      # =====================
+      - name: Build React
+        run: |
+          cd Frontend
+          npm install
+          npm run build
+          xcopy /E /Y /I "build\*" "D:\BOOBALAN\Testwebsite\"
+
+      # =====================
+      # IIS RESTART
+      # =====================
+      - name: Restart IIS
+        run: iisreset

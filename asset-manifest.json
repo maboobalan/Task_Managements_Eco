@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Task_Managements_Eco/static/css/main.be6514b0.css",
+    "main.js": "/Task_Managements_Eco/static/js/main.379e78b4.js",
+    "static/js/453.bd76cd1a.chunk.js": "/Task_Managements_Eco/static/js/453.bd76cd1a.chunk.js",
+    "index.html": "/Task_Managements_Eco/index.html",
+    "main.be6514b0.css.map": "/Task_Managements_Eco/static/css/main.be6514b0.css.map",
+    "main.379e78b4.js.map": "/Task_Managements_Eco/static/js/main.379e78b4.js.map",
+    "453.bd76cd1a.chunk.js.map": "/Task_Managements_Eco/static/js/453.bd76cd1a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be6514b0.css",
+    "static/js/main.379e78b4.js"
+  ]
+}
