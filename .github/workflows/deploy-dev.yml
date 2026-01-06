@@ -1,0 +1,33 @@
+name: Deploy to DEV
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, dev]
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # ======================
+    # BACKEND - .NET API
+    # ======================
+    - name: Publish API
+      run: |
+        cd server
+        dotnet restore
+        dotnet publish -c Release -o D:\BOOBALAN\MyApi
+
+    # ======================
+    # FRONTEND - REACT
+    # ======================
+    - name: Build React
+      run: |
+        cd client
+        npm install
+        npm run build
+        robocopy build D:\BOOBALAN\MyApp /MIR
